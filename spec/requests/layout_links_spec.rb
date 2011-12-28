@@ -26,5 +26,18 @@ describe "LayoutLinks" do
         get '/signup'
         response.should have_selector 'title', :content => "Sign up"
     end
+    
+    it "should have the right links on the layout" do
+        #start 
+        visit root_path
+
+        #visit all pages
+        #important this is an Ordered list ( "sign up" link is only available on Home page )
+        list = ["Home", "Sign up", "About", "Help", "Contact"]
+        for item in list do
+            click_link item
+            response.should have_selector 'title', :content => item
+        end
+    end
 end
 
