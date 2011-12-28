@@ -14,7 +14,7 @@ class TestStringExtension < Test::Unit::TestCase
 
   def test_same_length
       expected = "hello".length
-      actualy = "hello".shuffle.length
+      actually = "hello".shuffle.length
       assert_equal(expected, actually, "shuffled string should be same length")
   end
 
