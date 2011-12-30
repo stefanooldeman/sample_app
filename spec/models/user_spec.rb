@@ -42,4 +42,17 @@ describe User do
         end
     end
 
+    it "should reject duplicate email addresses" do
+        # Put a user with given email address into the db
+        User.create! @params
+        user = User.new @params
+        user.should_not be_valid
+    end
+
+    it "should reject duplicate email addresses (identical up to case)" do
+        upcased_email = @params[:email].upcase
+        User.create! @params.merge :email => upcased_email
+        user = User.new @params
+        user.should_not be_valid
+    end
 end
