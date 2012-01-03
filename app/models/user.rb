@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
                       :format => { :with => email_pattern },
                       :uniqueness => { :case_sensitive => false }
                         
+    
 end
