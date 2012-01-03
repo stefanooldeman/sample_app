@@ -6,7 +6,7 @@ describe User do
         @params = {
             :name => "Example user",
             :email => "john@example.com",
-            :password => "foobar",
+            :password => "123456foobar",
         }
     end
 
@@ -66,9 +66,6 @@ describe User do
 
         it "should require a password" do
             user = User.new(@params.merge :password => "")
-            # method should exist
-            user.password?
-            #and not be valid
             user.should_not be_valid
         end
 
@@ -82,6 +79,21 @@ describe User do
             long = "a" * 41
             hash = @params.merge :password => long
             User.new(hash).should_not be_valid
+        end
+    end
+
+    describe "password encryption" do
+    
+        before (:each) do
+            @user = User.create!(@params)
+        end
+
+        it "should have an encrypted password attribute" do
+            @user.should respond_to(:encrypted_password)
+        end
+
+        it "should set the encryption password" do
+            @user.encrypted_password.should_not be_blank
         end
     end
 end
