@@ -104,4 +104,22 @@ describe User do
             @user.has_password?("random string fu8093uj").should be_false
         end
     end
+
+    describe "authenitcation method" do
+
+        it "should return nil on email/password mismatch" do
+            user = User.authenticate @params[:email], "wrongpass"
+            user.should be_nil
+        end
+
+        it "should return nil for an email address with no user" do
+            user = User.authenticate "bar@foo.com", @params[:password]
+            user.should be_nil
+        end
+
+        it "should return the user on email/password match" do 
+            user = User.authenticate @params[:email], @params[:password]
+            user.should == @user
+        end
+    end
 end
