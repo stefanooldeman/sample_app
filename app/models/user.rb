@@ -1,3 +1,4 @@
+require 'digest'
 class User < ActiveRecord::Base
     attr_accessor   :password
     attr_accessible :name, :email, :password
@@ -17,13 +18,29 @@ class User < ActiveRecord::Base
 
     before_save :encrypt_password
 
+    
+    def has_password? (string)
+        encrypted_password == encrypt(string)
+    end
+
     private
 
         def encrypt_password
+            # called before save
+            self.salt = make_salt if new_record?
             self.encrypted_password = encrypt(password)
         end
 
         def encrypt(string)
-            string # @todo implement this
+            secure_hash("#{salt}--#{string}") 
+        end
+
+        def secure_hash(string)
+            Digest::SHA2.hexdigest(string)
+        end
+
+        def make_salt
+            my_secret = 'HFY*)RY@#LHJHdfgwy802hrgfd8sY&^WPQE*j;cJ*@WUFPDL'
+            secure_hash "#{Time.now.utc}--#{my_secret}"
         end
 end
