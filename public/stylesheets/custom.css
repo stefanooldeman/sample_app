@@ -84,3 +84,24 @@ a.signup_button {
     -webkit-border-radius: 10px;
     border-radius:	10px;
 }
+.profile {
+    float: left;
+     margin-bottom: 0;
+     width: auto;
+}
+.profile img.gravatar {
+    border: 1px solid #999; margin-bottom: -15px;
+}
+
+.sidebar {
+    float: right;
+    height:auto;
+    width: 30%;
+    padding: 10px;
+    background: #cfc;
+}
+
+div.clear {
+    clear: both;
+}
+

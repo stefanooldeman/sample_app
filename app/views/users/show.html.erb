@@ -1,5 +1,16 @@
-<h1>
+<h1 class="profile">
     <%= gravatar_for @user %>
-    <%= @user.name %>
+    <%= link_to @user.name, user_url %>
 </h1>
-<%= @user.name %>, <%= @user.email %>
+
+<dl class="sidebar round">
+    <dt>Name<dt>
+    <dd><%= @user.name %></dd>
+
+    <% if !@user.email.nil? %>
+        <dt>Email</dt>
+        <dd><%= @user.email %><dd>
+    <% end %>
+</dl>
+
+<div class="clear">&nbsp;</div>
